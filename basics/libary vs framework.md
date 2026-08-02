@@ -1,31 +1,75 @@
-# React vs Angular Notes
+# 📚 Library vs Framework
 
-## 📚 Library vs Framework
+## Library
 
-### Library
 A **library** is a collection of reusable code that solves a specific problem. Your application decides **when and how** to use it.
 
-**Characteristics**
+### Characteristics
+
 - Your application **calls the library**.
 - You control the application's architecture.
+- You decide the folder structure.
 - You choose the supporting libraries.
 - Maximum flexibility.
 - Few or no enforced conventions.
 
-**Examples:** React, Axios, Lodash
+### How React Works
+
+When using React, **your application starts React**.
+
+```jsx
+function App() {
+  return <h1>Hello World</h1>;
+}
+
+ReactDOM.createRoot(root).render(<App />);
+```
+
+Here, **your code** explicitly calls:
+
+```js
+ReactDOM.createRoot(root).render(<App />);
+```
+
+React then renders your components.
+
+Even though React internally calls your component:
+
+```js
+App();
+```
+
+it only does so to determine **what UI should be rendered**.
+
+React **does not control your entire application**.
+
+It does **not** decide:
+
+- Which router you use
+- Which state management library you use
+- Which HTTP client you use
+- How your folders should be organized
+- How authentication is implemented
+
+Those decisions are left to the developer.
+
+> **Think of React as an employee.** You hire React to build the UI, but you decide everything else.
 
 ---
 
-### Framework
-A **framework** provides the overall structure for building an application. It defines how different parts of the application should be organized and interact.
+## Framework
 
-**Characteristics**
+A **framework** provides the complete structure for building an application. Instead of your application controlling everything, the framework controls the application's lifecycle.
+
+### Characteristics
+
 - The **framework calls your code** (Inversion of Control).
-- Provides built-in solutions for common problems.
-- Enforces conventions and best practices.
+- Provides built-in solutions.
+- Enforces conventions.
+- Standard project structure.
 - Better consistency across large teams.
 
-For example, Angular already provides conventions for:
+Angular already provides conventions for:
 
 - Components
 - Services
@@ -50,126 +94,98 @@ src/
  │   └── app-routing.module.ts
 ```
 
-React does **not** enforce any project structure.
+### How Angular Works
 
-For example, both of these are perfectly valid:
+Angular bootstraps the application.
 
-```text
-src/
- ├── components/
- ├── hooks/
- ├── pages/
- └── utils/
+When you write:
+
+```ts
+@Component({
+  selector: 'app-home'
+})
+export class HomeComponent {
+
+  ngOnInit() {
+    console.log('Component initialized');
+  }
+
+}
 ```
 
-or
+You **never call**:
 
-```text
-src/
- ├── features/
- │   ├── meeting/
- │   ├── chat/
- │   └── auth/
+```ts
+ngOnInit();
 ```
 
-React gives developers the freedom to organize the project in whatever way best suits the application.
+Angular automatically:
 
-> **Key Difference:** A framework is **opinionated** and encourages a standard way of building applications, whereas a library gives developers the flexibility to decide the architecture.
+- Creates the component.
+- Creates services.
+- Injects dependencies.
+- Calls lifecycle hooks.
+- Manages routing.
+- Handles forms.
+- Starts change detection.
 
----
+Your application **lives inside Angular's lifecycle**.
 
-# ⚛️ React vs Angular
-
-| React | Angular |
-|--------|----------|
-| UI Library | Full Framework |
-| Developed by Meta | Developed by Google |
-| Uses JSX | Uses TypeScript & Templates |
-| Virtual DOM + Fiber | Change Detection |
-| One-way Data Flow | Supports Two-way Data Binding |
-| Third-party routing/state management | Built-in Routing, Forms, HTTP, DI |
-| Flexible | Opinionated |
-| Easier learning curve | Steeper learning curve |
+> **Think of Angular as a construction company.** The company already has a process—you simply plug your code into that process.
 
 ---
 
-# ✅ When to Use React
+## React vs Angular (Who Controls the Flow?)
 
-Choose React when:
+### React (Library)
 
-- Building highly interactive SPAs.
-- You need flexibility in choosing libraries.
-- Your team already has React expertise.
-- You are building reusable UI components or SDKs.
-- You want a lightweight UI layer.
-- Faster development and easier onboarding are priorities.
+```text
+Your Application
+        │
+        ▼
+Start React
+        │
+        ▼
+React renders App()
+        │
+        ▼
+UI Rendered
+```
 
-**Typical Stack**
-
-- React
-- React Router
-- Zustand / Redux
-- React Query
-- Axios / Fetch
-
----
-
-# ✅ When to Use Angular
-
-Choose Angular when:
-
-- Building large enterprise applications.
-- Multiple teams need a standardized architecture.
-- You want built-in Routing, Forms, HTTP Client, and Dependency Injection.
-- Convention and maintainability are more important than flexibility.
-- Your organization already uses Angular.
+Your application is in control.
 
 ---
 
-# 🚀 Why We Used React in Our Project (JioMeet)
+### Angular (Framework)
 
-JioMeet is a **real-time collaboration platform** with features like:
+```text
+Angular Bootstraps
+        │
+        ▼
+Creates Components
+        │
+        ▼
+Creates Services
+        │
+        ▼
+Dependency Injection
+        │
+        ▼
+Calls ngOnInit()
+        │
+        ▼
+Handles Routing & Forms
+```
 
-- Video conferencing
-- Chat
-- Screen sharing
-- Participant management
-- Network status
-- Meeting controls
-
-We chose **React** because:
-
-- Component-based architecture made it easy to build reusable UI components like Participant Tile, Chat Panel, and Meeting Controls.
-- We exposed our WebRTC SDK using **custom React Hooks** and reusable components, making integration simple for React applications.
-- React gave us the flexibility to choose libraries based on our project requirements.
-- React has a huge ecosystem, making development faster.
-- Most frontend developers already know React, improving SDK adoption and reducing the learning curve.
-- Our team already had strong React expertise, allowing faster development and easier maintenance.
-
-> **Note:** Angular could also build the same application. We chose React not because Angular couldn't do it, but because React better matched our team's expertise, flexibility requirements, SDK integration strategy, and the ecosystem of our consumers.
+Angular controls the application's lifecycle.
 
 ---
 
-# 💡 Interview Summary
+## Key Interview Takeaway
 
-### Library vs Framework
+- **Library:** Your application calls the library to solve a specific problem. The library only handles the responsibility it was designed for.
+- **Framework:** The framework controls the application's lifecycle and invokes your code at predefined points.
 
-- **Library:** Your code calls the library.
-- **Framework:** The framework calls your code.
-- **Library:** Gives flexibility; you decide the architecture.
-- **Framework:** Provides conventions and a predefined way to organize applications.
+### One-line Interview Answer
 
-### React vs Angular
-
-- **React** is a UI library focused on rendering the UI and lets developers choose the rest of the technology stack.
-- **Angular** is a complete framework that provides routing, forms, dependency injection, HTTP client, CLI, and a standardized project structure.
-
-### Why React?
-
-- Flexible architecture.
-- Component-based design.
-- Excellent developer experience.
-- Huge ecosystem.
-- Easy SDK integration.
-- Strong community support.
-- Faster onboarding for developers.
+> **React is a library because my application owns the architecture and only uses React to render the UI. Angular is a framework because it owns the application's lifecycle—it bootstraps the application, creates components and services, performs dependency injection, and invokes my code through lifecycle hooks like `ngOnInit()`.**
