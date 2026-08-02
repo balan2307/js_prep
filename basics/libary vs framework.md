@@ -3,20 +3,78 @@
 ## 📚 Library vs Framework
 
 ### Library
-- Solves a **specific problem**.
-- **Your application calls the library.**
-- You decide the application architecture and choose supporting libraries.
-- Offers maximum flexibility.
+A **library** is a collection of reusable code that solves a specific problem. Your application decides **when and how** to use it.
+
+**Characteristics**
+- Your application **calls the library**.
+- You control the application's architecture.
+- You choose the supporting libraries.
+- Maximum flexibility.
+- Few or no enforced conventions.
 
 **Examples:** React, Axios, Lodash
 
-### Framework
-- Provides the **complete application structure**.
-- **The framework calls your code** (Inversion of Control).
-- Comes with built-in features and conventions.
-- Offers consistency and standardization.
+---
 
-**Examples:** Angular, Spring Boot, Django
+### Framework
+A **framework** provides the overall structure for building an application. It defines how different parts of the application should be organized and interact.
+
+**Characteristics**
+- The **framework calls your code** (Inversion of Control).
+- Provides built-in solutions for common problems.
+- Enforces conventions and best practices.
+- Better consistency across large teams.
+
+For example, Angular already provides conventions for:
+
+- Components
+- Services
+- Routing
+- Dependency Injection
+- Forms
+- HTTP Client
+- Guards
+- Pipes
+- Interceptors
+
+Typical Angular project structure:
+
+```text
+src/
+ ├── app/
+ │   ├── components/
+ │   ├── services/
+ │   ├── guards/
+ │   ├── pipes/
+ │   ├── interceptors/
+ │   └── app-routing.module.ts
+```
+
+React does **not** enforce any project structure.
+
+For example, both of these are perfectly valid:
+
+```text
+src/
+ ├── components/
+ ├── hooks/
+ ├── pages/
+ └── utils/
+```
+
+or
+
+```text
+src/
+ ├── features/
+ │   ├── meeting/
+ │   ├── chat/
+ │   └── auth/
+```
+
+React gives developers the freedom to organize the project in whatever way best suits the application.
+
+> **Key Difference:** A framework is **opinionated** and encourages a standard way of building applications, whereas a library gives developers the flexibility to decide the architecture.
 
 ---
 
@@ -88,7 +146,7 @@ We chose **React** because:
 - Most frontend developers already know React, improving SDK adoption and reducing the learning curve.
 - Our team already had strong React expertise, allowing faster development and easier maintenance.
 
-> **Note:** Angular could also build the same application. We chose React not because Angular couldn't do it, but because React better matched our team's expertise, our SDK integration strategy, flexibility requirements, and the ecosystem of our consumers.
+> **Note:** Angular could also build the same application. We chose React not because Angular couldn't do it, but because React better matched our team's expertise, flexibility requirements, SDK integration strategy, and the ecosystem of our consumers.
 
 ---
 
@@ -98,18 +156,20 @@ We chose **React** because:
 
 - **Library:** Your code calls the library.
 - **Framework:** The framework calls your code.
+- **Library:** Gives flexibility; you decide the architecture.
+- **Framework:** Provides conventions and a predefined way to organize applications.
 
 ### React vs Angular
 
-- **React** is a UI library that lets developers choose the rest of the stack.
-- **Angular** is a complete framework with built-in routing, forms, HTTP, dependency injection, and application structure.
+- **React** is a UI library focused on rendering the UI and lets developers choose the rest of the technology stack.
+- **Angular** is a complete framework that provides routing, forms, dependency injection, HTTP client, CLI, and a standardized project structure.
 
 ### Why React?
 
-- Flexible
-- Component-based
-- Excellent developer experience
-- Huge ecosystem
-- Easy SDK integration
-- Strong community support
-- Faster onboarding for developers
+- Flexible architecture.
+- Component-based design.
+- Excellent developer experience.
+- Huge ecosystem.
+- Easy SDK integration.
+- Strong community support.
+- Faster onboarding for developers.
