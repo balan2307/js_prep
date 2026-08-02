@@ -430,3 +430,12 @@ Commit Phase (Synchronous)
 - Only the **Render (Reconciliation)** phase became interruptible.
 - The **Commit** phase is still synchronous.
 - Fiber is the foundation for Concurrent Rendering, `startTransition`, Suspense, and other modern React features.
+
+
+### Virtual DOM vs Fiber
+
+Before **React 16**, the Virtual DOM was represented as a tree of **React Elements** (plain JavaScript objects containing `type` and `props`), and the **Stack Reconciler** recursively traversed this tree synchronously to determine what had changed.
+
+With **React 16**, React introduced the **Fiber architecture**, which **did not replace the Virtual DOM**. Instead, it replaced the **Stack Reconciler** with the **Fiber Reconciler**. During reconciliation, React builds a **Fiber Tree**, where each **Fiber Node** is a richer JavaScript object representing a component. Along with `type` and `props`, a Fiber Node stores additional information such as **state, hooks, parent/child/sibling links, update priority, effect flags, and a reference to the DOM node**.
+
+This richer data structure allows React to **pause, resume, prioritize, and schedule rendering work**, making features like Concurrent Rendering, `startTransition`, and Suspense possible while still using the Virtual DOM as the conceptual representation of the UI.
